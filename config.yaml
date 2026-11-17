@@ -1,0 +1,32 @@
+data:
+  path: "data/student_data.csv"
+  target: "final_grade"        # regression target (0-100)
+  classification_threshold: 60 # pass/fail cutoff
+  test_size: 0.2
+  random_state: 42
+
+features:
+  numeric:
+    - study_hours_per_week
+    - attendance_rate
+    - prior_gpa
+    - sleep_hours
+    - parental_education_level
+  categorical:
+    - gender
+    - school_type
+    - socioeconomic_status
+    - internet_access
+  drop:
+    - student_id
+
+model:
+  cv_folds: 5
+  optuna_trials: 40
+  stacking_models: ["xgboost", "lightgbm", "catboost", "random_forest"]
+  meta_learner: "ridge"
+
+paths:
+  artifacts: "artifacts/"
+  models: "artifacts/models/"
+  reports: "artifacts/reports/"
